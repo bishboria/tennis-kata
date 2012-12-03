@@ -11,7 +11,9 @@ More details on the Kata [here][tennis-kata].
 I didn't create branches for the differing solutions but here are links:
 
 [Deuce and Advantage are constructors in Score type][solution1]
+
 [Deuce, AdvantageA, AdvantageB are constructors in Game type][solution2]
+
 [Parameterising Advantage and Winner constructors to take a Player][solution3]
 
 [solution1]: https://github.com/bishboria/tennis-kata/blob/9fd87663ff74dd87646db1600bec0ee4b1f85fcf
