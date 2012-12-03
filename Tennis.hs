@@ -7,6 +7,7 @@ module Tennis
 
 data Player = A
             | B
+            deriving (Show)
 
 data Score = Love
            | Fifteen
@@ -16,18 +17,14 @@ data Score = Love
 
 data Game = Game Score Score
           | Deuce
-          | AdvantageA
-          | AdvantageB
-          | WinnerA
-          | WinnerB
+          | Advantage Player
+          | Winner Player
 
 instance Show Game where
-    show AdvantageA = "Advantage A"
-    show AdvantageB = "Advantage B"
-    show Deuce      = "Deuce"
-    show (Game x y) = show x ++ " - " ++ show y
-    show WinnerA    = "A Wins"
-    show WinnerB    = "B Wins"
+    show (Advantage x) = "Advantage " ++ show x
+    show Deuce         = "Deuce"
+    show (Game x y)    = show x ++ " - " ++ show y
+    show (Winner x)    = show x ++ " Wins"
 
 instance Show Score where
     show Love    = "Love"
@@ -39,16 +36,16 @@ newGame :: Game
 newGame = (Game Love Love)
 
 score :: Player -> Game -> Game
-score A AdvantageA          = WinnerA
-score B AdvantageB          = WinnerB
-score A AdvantageB          = Deuce
-score B AdvantageA          = Deuce
-score A Deuce               = AdvantageA
-score B Deuce               = AdvantageB
+score A (Advantage A)       = Winner A
+score B (Advantage B)       = Winner B
+score A (Advantage _)       = Deuce
+score B (Advantage _)       = Deuce
+score A Deuce               = Advantage A
+score B Deuce               = Advantage B
 score A (Game Thirty Forty) = Deuce
 score B (Game Forty Thirty) = Deuce
-score A (Game Forty _)      = WinnerA
-score B (Game _ Forty)      = WinnerB
+score A (Game Forty _)      = Winner A
+score B (Game _ Forty)      = Winner B
 score A (Game x y)          = Game (succ x) y
 score B (Game x y)          = Game w z
   where
