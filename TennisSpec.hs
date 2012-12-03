@@ -5,6 +5,9 @@ scorePoints :: Int -> Player -> Game -> Game
 scorePoints 0 _ g = g
 scorePoints n p g = scorePoints (n-1) p (score p g)
 
+deuceGame :: Game
+deuceGame = (scorePoints 3 A . scorePoints 3 B) newGame
+
 main :: IO()
 main = hspec $ do
 
@@ -42,4 +45,4 @@ main = hspec $ do
         context "including Deuce" $ do
 
             it "deuce game" $ do
-                (show . scorePoints 3 A . scorePoints 3 B) newGame `shouldBe` "Deuce"
+                (show deuceGame) `shouldBe` "Deuce"
