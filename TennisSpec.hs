@@ -46,3 +46,18 @@ main = hspec $ do
 
             it "deuce game" $ do
                 (show deuceGame) `shouldBe` "Deuce"
+
+            it "deuce game then A scores" $ do
+                (show $ score A deuceGame) `shouldBe` "Advantage A"
+
+            it "deuce game then B scores" $ do
+                (show $ score B deuceGame) `shouldBe` "Advantage B"
+
+            it "deuce game, Advantage, return to deuce" $ do
+                (show . score B . score A) deuceGame `shouldBe` "Deuce"
+
+            it "deuce game, Advantage A, A wins" $ do
+                (show $ scorePoints 2 A deuceGame) `shouldBe` "A Wins"
+
+            it "deuce game, Advantage B, B wins" $ do
+                (show $ scorePoints 2 B deuceGame) `shouldBe` "B Wins"
