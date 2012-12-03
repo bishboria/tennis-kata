@@ -37,8 +37,8 @@ newGame = (Game Love Love)
 
 score :: Player -> Game -> Game
 score A (Advantage A)       = Winner A
-score B (Advantage B)       = Winner B
 score A (Advantage _)       = Deuce
+score B (Advantage B)       = Winner B
 score B (Advantage _)       = Deuce
 score A Deuce               = Advantage A
 score B Deuce               = Advantage B
