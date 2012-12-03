@@ -12,21 +12,22 @@ data Score = Love
            | Fifteen
            | Thirty
            | Forty
-           | Deuce
-           | Advantage
            deriving (Enum)
 
 data Game = Game Score Score
+          | Deuce
+          | AdvantageA
+          | AdvantageB
           | WinnerA
           | WinnerB
 
 instance Show Game where
-    show (Game Advantage _) = "Advantage A"
-    show (Game _ Advantage) = "Advantage B"
-    show (Game Deuce _)     = "Deuce"
-    show (Game x y)         = show x ++ " - " ++ show y
-    show WinnerA            = "A Wins"
-    show WinnerB            = "B Wins"
+    show AdvantageA = "Advantage A"
+    show AdvantageB = "Advantage B"
+    show Deuce      = "Deuce"
+    show (Game x y) = show x ++ " - " ++ show y
+    show WinnerA    = "A Wins"
+    show WinnerB    = "B Wins"
 
 instance Show Score where
     show Love    = "Love"
@@ -38,11 +39,14 @@ newGame :: Game
 newGame = (Game Love Love)
 
 score :: Player -> Game -> Game
-score A (Game Advantage _)  = WinnerA
-score B (Game _ Advantage)  = WinnerB
-score A (Game _ Advantage)  = Game Deuce Deuce
-score A (Game Deuce x)      = Game Advantage x
-score A (Game Thirty Forty) = Game Deuce Deuce
+score A AdvantageA          = WinnerA
+score B AdvantageB          = WinnerB
+score A AdvantageB          = Deuce
+score B AdvantageA          = Deuce
+score A Deuce               = AdvantageA
+score B Deuce               = AdvantageB
+score A (Game Thirty Forty) = Deuce
+score B (Game Forty Thirty) = Deuce
 score A (Game Forty _)      = WinnerA
 score B (Game _ Forty)      = WinnerB
 score A (Game x y)          = Game (succ x) y
