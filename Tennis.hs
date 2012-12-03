@@ -1,6 +1,5 @@
 module Tennis
 ( Player(..)
-, Score
 , Game
 , newGame
 , score
