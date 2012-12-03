@@ -25,10 +25,10 @@ instance Show Game where
     show WinnerB    = "B Wins"
 
 instance Show Score where
-    show Love = "Love"
+    show Love    = "Love"
     show Fifteen = "15"
-    show Thirty = "30"
-    show Forty = "40"
+    show Thirty  = "30"
+    show Forty   = "40"
 
 newGame :: Game
 newGame = (Game Love Love)
@@ -40,4 +40,4 @@ score A (Game x y)     = Game (succ x) y
 score B (Game x y)     = Game w z
   where
     (Game z w) = score A (Game y x)
-score _ gameFinished = gameFinished
+score _ gameFinished   = gameFinished
