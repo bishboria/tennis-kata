@@ -38,3 +38,8 @@ main = hspec $ do
 
             it "player B scores 4 points" $ do
                 (show . scorePoints 4 B) newGame `shouldBe` "B Wins"
+
+        context "including Deuce" $ do
+
+            it "deuce game" $ do
+                (show . scorePoints 3 A . scorePoints 3 B) newGame `shouldBe` "Deuce"

@@ -13,6 +13,7 @@ data Score = Love
            | Fifteen
            | Thirty
            | Forty
+           | Deuce
            deriving (Enum)
 
 data Game = Game Score Score
@@ -20,6 +21,7 @@ data Game = Game Score Score
           | WinnerB
 
 instance Show Game where
+    show (Game Deuce _) = "Deuce"
     show (Game x y) = show x ++ " - " ++ show y
     show WinnerA    = "A Wins"
     show WinnerB    = "B Wins"
@@ -34,6 +36,7 @@ newGame :: Game
 newGame = (Game Love Love)
 
 score :: Player -> Game -> Game
+score A (Game Thirty Forty) = Game Deuce Deuce
 score A (Game Forty _) = WinnerA
 score B (Game _ Forty) = WinnerB
 score A (Game x y)     = Game (succ x) y
