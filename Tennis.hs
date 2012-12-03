@@ -1,7 +1,7 @@
 module Tennis
 ( Player(..)
 , Score(..)
-, Game(..)
+, Game
 , newGame
 , score
 ) where
